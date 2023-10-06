@@ -1,0 +1,35 @@
+{% extends 'app/home_base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}<title>Search</title>{% endblock %}
+</head>
+<body >
+{% block search %}
+    <div class="row" style="margin: 10px">
+    {% if searched == "" %}
+        <p>List of all product: {{ numbers }}</p><br>
+    {% else %}
+        <p>Result for {{ searched }}: {{ numbers }}</p><br>
+    {% endif %}
+        {% for product in keys %}
+            <div class="col-lg-3">
+                <img class = "thumbnail" src="{{ product.image_url }}" alt={% static 'app/images/placeholder.png' %}>
+                <div class="box-element product">
+                    <h6><strong>{{ product.name }}</strong></h6>
+                    <hr>
+                    <button data-product={{ product.id }} data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+                    <a class="btn btn-outline-success" href="#">View</a>
+                    <a class="btn btn-outline-success" href="#">Buy</a>
+                    <h4 style="display: inline-block; float: right"><strong>${{ product.price|floatformat:2}}</strong></h4>
+                </div>
+            </div>
+            {% empty %}
+            <p>Product is not available</p>
+        {% endfor %}
+    </div>
+{% endblock search %}
+</body>
+</html>
