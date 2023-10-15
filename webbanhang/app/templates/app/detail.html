@@ -28,7 +28,7 @@
                             </div>
                             <div class="mt-4 mb-3"> <span class="text-uppercase text-muted brand">Product</span>
                                 <h5 class="text-uppercase">{{ product.name }}</h5>
-                                <div class="price d-flex flex-row align-items-center"> <span class="act-price">${{product.price}}</span>
+                                <div class="price d-flex flex-row align-items-center"> <span class="act-price">{{product.price|floatformat:"g"}} VND</span>
 {#                                    <div class="ml-2"> <small class="dis-price">$59</small> <span>40% OFF</span> </div>#}
                                 </div>
                             </div>

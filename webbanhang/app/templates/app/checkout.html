@@ -3,82 +3,69 @@
 {% block title %}<title>Check Out</title>{% endblock %}
 {% block checkout %}
      <div class="row" style="width: 100%">
-		<div class="col-lg-6">
+		<div class="col-lg-4">
 			<div class="box-element" id="form-wrapper">
 				<form id="form">
-					<div id="user-info">
-						<div class="form-field">
-							<input required class="form-control" type="text" name="name" placeholder="Name..">
-						</div>
-						<div class="form-field">
-							<input required class="form-control" type="email" name="email" placeholder="Email..">
-						</div>
-					</div>
-
 					<div id="shipping-info">
+                        <a class="btn">
+                            <img src="{% static 'app/images/Other/Shipping1.jpg' %}" alt="Shipping" width="auto" height="30px">
+                            <strong><i>Shipping Address</i></strong>
+                        </a>
 						<hr>
-						<p>Shipping Information:</p>
-						<hr>
-						<div class="form-field">
+						<div class="form-field" style="width: 470px">
 							<input class="form-control" type="text" name="address" placeholder="Address..">
 						</div>
-						<div class="form-field">
+						<div class="form-field" style="width: 470px">
 							<input class="form-control" type="text" name="city" placeholder="City..">
 						</div>
-						<div class="form-field">
+						<div class="form-field" style="width: 470px">
 							<input class="form-control" type="text" name="state" placeholder="State..">
 						</div>
-						<div class="form-field">
+						<div class="form-field" style="width: 470px">
 							<input class="form-control" type="text" name="mobile" placeholder="Mobile">
 						</div>
-						<div class="form-field">
+						<div class="form-field" style="width: 470px">
 							<input class="form-control" type="text" name="country" placeholder="Viet Nam">
 						</div>
 					</div>
-
 					<hr>
-					<input id="form-button" class="btn btn-success btn-block" type="submit" value="Continue">
+                    <input id="form-button" class="btn btn-success btn-block" type="submit" value="Continue" style="width: 470px">
 				</form>
 			</div>
-
 			<br>
-			<div class="box-element hidden" id="payment-info">
-				<small>Paypal Options</small>
-			</div>
-
 		</div>
-
-		<div class="col-lg-6">
+        <!--ORDER SUMMARY-->
+		<div class="col-lg-8">
 			<div class="box-element">
-				<a  class="btn btn-outline-dark" href="{% url 'cart' %}">&#x2190; Back to Cart</a>
+				<a class="btn" href="{% url 'cart' %}">
+                    <img src="{% static 'app/images/Icons/backarrow.webp' %}" alt="Back Arrow" width="auto" height="30px">
+                    <i>Back To Cart</i>
+                </a>
 				<hr>
-				<h3>Order Summary</h3>
+                <div class="box-element">
+				<h3>Summary</h3>
+                    <h6>Items: <strong>{{ invoice_current.get_invoice_items }}</strong></h6>
+                    <h6>Total:<strong> {{ invoice_current.get_invoice_total|floatformat:"g"}} VND</strong></h6>
+                </div>
 				<hr>
                 <div class="cart-row">
                     <div style="flex:2"><p><strong>Image</strong></p></div>
                     <div style="flex:2"><p><strong>Item</strong></p></div>
                     <div style="flex:1"><p><strong>Price</strong></p></div>
                     <div style="flex:1"><p><strong>Quantity</strong></p></div>
+                    <div style="flex:1"><p><strong>Total</strong></p></div>
                 </div>
-{#                {% for item in items %}#}
-{#				<div class="cart-row">#}
-{#					<div style="flex:2"><img class="row-image" src="{{ item.product.image_url }}"></div>#}
-{#					<div style="flex:2"><p>{{ item.product.name }}</p></div>#}
-{#					<div style="flex:1"><p>${{ item.product.price }}</p></div>#}
-{#					<div style="flex:1"><p>{{ item.quantity }}</p></div>#}
-{#				</div>#}
-{#                {% endfor %}#}
-{#			</div>#}
-        <div>
+            <div>
             {% for item in items_checked_list %}
 				<div class="cart-row">
 					<div style="flex:2"><img class="row-image" src="{{ item.product.image_url}}" alt="NoImage"></div>
 					<div style="flex:2"><p>{{ item.product.name }}</p></div>
-					<div style="flex:1"><p>${{ item.product.price }}</p></div>
+					<div style="flex:1"><p>{{ item.product.price|floatformat:"g" }} VND</p></div>
 					<div style="flex:1"><p>{{ item.quantity }}</p></div>
+                    <div style="flex:1"><p>{{ item.get_total|floatformat:"g" }} VND</p></div>
 				</div>
             {% endfor %}
-        </div>
+        <!--ORDER SUMMARY-->
 		</div>
 	</div>
     <br><br>
