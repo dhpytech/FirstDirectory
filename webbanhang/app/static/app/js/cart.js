@@ -1,10 +1,12 @@
 let updateBtns;
 let cart_items;
+
+// listen Event Add to Cart Button click
 updateBtns = document.getElementsByClassName('update-cart');
-cart_items = +document.getElementById('cart items').textContent;
-for (let i=0;i < updateBtns.length; i++)
+cart_items = parseInt(document.getElementById('cart items').textContent);
+for (let element_i=0;element_i < updateBtns.length; element_i++)
     {
-        updateBtns[i].addEventListener('click', function ()
+        updateBtns[element_i].addEventListener('click', function ()
         {
             let itemId = this.dataset.item;
             let productId = this.dataset.product;
@@ -16,13 +18,16 @@ for (let i=0;i < updateBtns.length; i++)
             else
             {
                 update_user_order(itemId, productId, action);
-                cart_items += 1
+
+                cart_items = action === "remove" ? cart_items -= 1 : cart_items += 1;
                 document.getElementById('cart items').innerHTML = cart_items
             }
         })
     }
+
+// Update data to Server and Client
 function update_user_order(itemId, productId, action) {
-    let url = '/home/update_item/'
+    let url = '/update_item/'
     fetch(url, {
             method: 'POST',
             headers: {
@@ -34,8 +39,9 @@ function update_user_order(itemId, productId, action) {
         .then(response =>{
         return response.json()}
         )
-        .then(data =>{
+        .then(() =>{
             let quantityElement = document.getElementById(`${itemId}p_quantity`);
+            console.log("quantityElement", quantityElement)
             let quantityValue = parseFloat(quantityElement.textContent);
             quantityValue = action === "remove" ? quantityValue - 1 : quantityValue + 1;
             quantityElement.innerHTML = quantityValue.toLocaleString("en-US");

@@ -93,7 +93,7 @@ class ShippingAddress(models.Model):
 
 class UserMoreDetails(models.Model):
     customer = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True)
-    userImage = models.ImageField(null=True, blank=True, default="")
+    userImage = models.ImageField(null=True, blank=True, upload_to='static/images/')
     userPhone = models.CharField(max_length=12, null=True, blank=True, default="")
     facebookSite = models.TextField(name='facebook', null=True, blank=True, default="")
     twitterSite = models.TextField(name='twitter', null=True, blank=True, default="")
@@ -101,6 +101,14 @@ class UserMoreDetails(models.Model):
 
     def __str__(self):
         return f'{self.customer} info'
+
+    @property
+    def image_url(self):
+        try:
+            url = self.userImage.url
+        except ValueError:
+            url = '/static/app/images/Other/avatar.jpg'
+        return url
 
 
 class Invoice(models.Model):

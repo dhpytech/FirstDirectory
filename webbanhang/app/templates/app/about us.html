@@ -8,17 +8,20 @@ body {
     background-size: cover;
 }
 </style>
+    <link href="{% static 'app/css/aboutUsStyle.css' %}" rel="stylesheet">}
 {% endblock style %}
 
 {% block about_us %}
-<div class="aboutus-section">
+<div class="content">
+<div class="about-section">
     <div class="container">
         <div class="row">
             <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="aboutus">
-                    <h2 class="aboutus-title">About Us</h2>
-                    <p class="aboutus-text">We are Hoi An Fresh Fruit Delivery</p>
-                    <p class="aboutus-text">Delivert to your door</p>
+                    <h3 class="aboutus-title">About Us</h3>
+                    <p class="aboutus-text">We are Hoi An Fresh Fruit Delivery. We are fruits and vegetables supplier. Supply fresh fruits and vegetables
+                    is happiness with us. In modern life, we spend much time for social life as work, business ...Lets delivery food to your door. Save your time - Enjoy your life</p>
+                    <p class="aboutus-text">KEEP IN YOUR MIND:<br><quote>SAVE YOUR TIME - ENJOY YOUR LIFE </quote></p>
                 </div>
             </div>
             <div class="col-md-3 col-sm-6 col-xs-12">
@@ -34,8 +37,8 @@ body {
                                 <span class="glyphicon glyphicon-cog icon"></span>
                             </div>
                             <div class="feature-content">
-                                <h4>Work with heart</h4>
-                                <p>Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in.</p>
+                                <h3>Work with heart</h3>
+                                <p>Our Team always service clients by pure heart. Help our clients have more time to enjoy with their family and nice friends.</p>
                             </div>
                         </div>
                     </div>
@@ -45,8 +48,8 @@ body {
                                 <span class="glyphicon glyphicon-cog icon"></span>
                             </div>
                             <div class="feature-content">
-                                <h4>Reliable services</h4>
-                                <p>Donec vitae sapien ut libero venenatis faucibu. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt</p>
+                                <h3>Reliable services</h3>
+                                <p>Reliable is one of our priority. We and our client are nice friends.</p>
                             </div>
                         </div>
                     </div>
@@ -56,8 +59,8 @@ body {
                                 <span class="glyphicon glyphicon-cog icon"></span>
                             </div>
                             <div class="feature-content">
-                                <h4>Great support</h4>
-                                <p>Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in.</p>
+                                <h3>Great support</h3>
+                                <p>We are very happy for client's feedback as well as nice things which help us improve our service.</p>
                             </div>
                         </div>
                     </div>
@@ -67,16 +70,32 @@ body {
     </div>
 </div>
 
-<div class="row" style="margin: 100px" >
-<h2 >OUR TEAM</h2>
-    {% for member in member_team %}
-        <div class="col-lg-3" >
-        <img style="padding: 20px" id = "product_img" class = "thumbnail" src="{{ member.image_url }}" alt="{% static 'app/images/placeholder.png' %}" height="200" width="300">
-            <p style="margin-left: 20px">Name: {{ member.name }}</p>
-            <p style="margin-left: 20px">Position: {{ member.position }}</p>
-            <p style="margin-left: 20px">Email: {{ member.email }}</p>
-        </div>
-    {% endfor %}
+<h3 style="margin-left: 5%">Our Team</h3>
+<div class="row" style="margin-left: 5%">
+{% for member in member_team %}
+  <div class="column">
+    <div class="card" style="margin: 0px">
+      <img src="{{ member.image_url }}" height="200px" alt="name" style="width:100%">
+      <div class="container">
+        <br>
+        <h5>{{ member.name }}</h5>
+        <p class="title">Position: {{ member.position}}</p>
+          <div class="{{ member.name }}contact">
+            <p id="{{ member.name }}phone">Phone: {{ member.phone }}</p>
+            <p id="{{ member.name }}email">Email: {{ member.email}}</p>
+          </div>
+      </div>
+    </div>
+  </div>
+{% endfor %}
 </div>
-
+</div>
+{#<script>#}
+{#    $(document).ready(function(){#}
+{#        $("#{{ member.name }}").click(function(){#}
+{#            $("#{{ member.name }}phone").toggle();#}
+{#            $("#{{ member.name }}email").toggle();#}
+{#        });#}
+{#    });#}
+{#</script>#}
 {% endblock about_us %}

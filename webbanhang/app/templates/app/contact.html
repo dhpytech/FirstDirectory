@@ -19,24 +19,30 @@ body {
 <hr>
 <div class="row">
   <div class="col-md-8">
-      <form action="/post" method="post">
-        <input class="form-control" name="name" placeholder="Name..." /><br />
-        <input class="form-control" name="phone" placeholder="Phone..." /><br />
-        <input class="form-control" name="email" placeholder="E-mail..." /><br />
-        <textarea class="form-control" name="text" placeholder="How can we help you?" style="height:150px;"></textarea><br />
+      {% include 'app/include/message.html' %}
+      <form action="{% url 'contact_information'%}" method="post" >
+         {% csrf_token %}
+        <input id='client_name' class="form-control" name="name" placeholder="Name..." required /><br />
+        <label for=client_name></label>
+        <input id='client_phone' class="form-control" name="phone" placeholder="Phone..."/><br />
+        <label for=client_phone></label>
+        <input id='client_phone' class="form-control" name="email" placeholder="E-mail..." required/><br />
+        <label for=client_email></label>
+        <textarea id ='client_feedback' class="form-control" name="content" placeholder="How can we help you?" style="height:150px;" required></textarea><br />
+        <label for=client_feedback></label>
         <input class="btn btn-primary" type="submit" value="Send" /><br /><br />
       </form>
   </div>
   <div class="col-md-4">
     <b>Customer service:</b> <br />
     Phone: +84 935 535 131<br />
-    E-mail: <a href="#" style="text-decoration: none">dh.gentle.man@gmail.com</a><br />
+    E-mail: <a href="mailto:dh.gentle.man@gmail.com" style="text-decoration: none">dh.gentle.man@gmail.com</a><br />
     <br /><br />
     <b>Address:</b><br />
     09 Cao Hồng Lãnh<br />
     Hội An - Quảng Nam - Việt Nam<br />
     Phone: +84 935 535 131<br />
-    E-mail: <a href="#" style="text-decoration: none">dh.gentle.man@gmail.com</a><br />
+    E-mail: <a href="mailto:dh.gentle.man@gmail.com" style="text-decoration: none">dh.gentle.man@gmail.com</a><br />
 
   </div>
 </div>

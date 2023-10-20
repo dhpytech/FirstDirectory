@@ -54,14 +54,15 @@
     <div class="row" style="margin: 10px">
     <h2>VEGETABLES</h2>
         {% for product in vegetables %}
-            <div class="col-lg-3">
-                <img id = "product_img" class = "thumbnail" src="{{ product.image_url }}" alt={% static 'app/images/placeholder.png' %}>
+            <div class="col-lg-3" >
+                <img id = "product_img" class = "thumbnail" src="{{ product.image_url }}" alt={% static 'app/images/placeholder.png' %} width=100% style="width: 100%; padding: 2%">
+                <hr>
                 <div class="box-element product">
                     <h6><strong>{{ product.name }}</strong></h6>
                     <hr>
                     <button data-product={{ product.id }} data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
                     <a class="btn btn-outline-success" href="{% url 'detail' %}?id={{ product.id }}">View</a>
-                    <a class="btn btn-outline-success" href="#">{{ product.price|floatformat:"g"}} VND/1KG</a>
+                    <a class="btn btn-outline-success" href="#" style="float: right">{{ product.price|floatformat:"g"}} VND/1KG</a>
                 </div>
             </div>
         {% endfor %}
@@ -69,15 +70,15 @@
     <div class="row" style="margin: 10px">
     <h2>FRUITS</h2>
         {% for product in fruits %}
-            <div class="col-lg-3">
-                <img id = "product_img" class = "thumbnail" src="{{ product.image_url }}" alt={% static 'app/images/placeholder.png' %}>
+            <div class="col-lg-3" >
+                <img id = "product_img" class = "thumbnail" src="{{ product.image_url }}" alt={% static 'app/images/placeholder.png' %} width=100% style="width: 100%; padding: 2%">
+                <hr>
                 <div class="box-element product">
                     <h6><strong>{{ product.name }}</strong></h6>
                     <hr>
                     <button data-product={{ product.id }} data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
                     <a class="btn btn-outline-success" href="{% url 'detail' %}?id={{ product.id }}">View</a>
-                    <a class="btn btn-outline-success" href="#">Buy</a>
-                    <h5 style="display: inline-block; float: right"><strong>${{ product.price|floatformat:2}}</strong></h5>
+                    <a class="btn btn-outline-success" href="#" style="float: right">{{ product.price|floatformat:"g"}} VND/1KG</a>
                 </div>
             </div>
         {% endfor %}
@@ -85,14 +86,15 @@
     <div class="row" style="margin: 10px">
     <h2>HERB</h2>
         {% for product in herb %}
-            <div class="col-lg-3">
-                <img id = "product_img" class = "thumbnail" src="{{ product.image_url }}" alt={% static 'app/images/placeholder.png' %}>
+            <div class="col-lg-3" >
+                <img id = "product_img" class = "thumbnail" src="{{ product.image_url }}" alt={% static 'app/images/placeholder.png' %} width=100% style="width: 100%; padding: 2%">
+                <hr>
                 <div class="box-element product">
                     <h6><strong>{{ product.name }}</strong></h6>
                     <hr>
                     <button data-product={{ product.id }} data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
                     <a class="btn btn-outline-success" href="{% url 'detail' %}?id={{ product.id }}">View</a>
-                    <a class="btn btn-outline-success" href="#">{{ product.price|floatformat:"g"}} VND/1KG</a>
+                    <a class="btn btn-outline-success" href="#" style="float: right">{{ product.price|floatformat:"g"}} VND/1KG</a>
                 </div>
             </div>
         {% endfor %}

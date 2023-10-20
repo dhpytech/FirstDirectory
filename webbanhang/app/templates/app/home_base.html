@@ -1,10 +1,14 @@
-{% load static %}
+{% load static %}{% load i18n %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--css-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          crossorigin="anonymous">
     <link href="{% static 'app/css/style.css' %}" rel="stylesheet">
     <link href="{% static 'app/css/owl.carousel.min.css' %}" rel="stylesheet">
     <link href="{% static 'app/css/all.min.css' %}" rel="stylesheet">
@@ -19,77 +23,80 @@
     <script src="{% static 'app/js/get_cookie.js' %}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     {% block title %}<title>Home Base</title>{% endblock %}
+    <link rel="icon" type="image/x-icon" href="{% static 'app/images/logo/hafff_logo2.png' %}">
     {% block style %}<style></style>{% endblock style %}
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <div class="container-fluid">
-              <a class="navbar-brand" href="{% url 'home' %}">
-                  <img src="{% static 'app/images/logo/moc.png' %}" style="width:100px;height:100px">
-              </a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-              </button>
+{% block nav %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="width: 100%" >
+      <div class="container-fluid">
+          <a class="navbar-brand" href="{% url 'home' %}">
+              <img src="{% static 'app/images/logo/hafff_logo2.png' %}" style="width:100px;height:100px" alt="">
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+          </button>
 
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                      <li class="nav-item">
-                          <a class="nav-link active" aria-current="page" href="{% url 'home' %}">
-                              <img src="{% static 'app/images/Icons/home.ico' %}" style="height: 25px; width: auto"> Home
-                          </a>
-                      </li>
-                      <li class="nav-item dropdown">
-                          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                              <img src="{% static 'app/images/Icons/list_icon2.jpg' %}" style="height: 25px; width: auto"> Product
-                          </a>
-
-                          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                              {% for category in categories %}
-                                <li><a class="dropdown-item" href="{% url 'category_item' %}?category={{category.slug}}">{{ category.name }}</a></li>
-                              {% endfor %}
-                          </ul>
-
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" href="{% url 'about' %}"><img src="{% static 'app/images/Icons/pngwing.com.png' %}" style="height: 25px; width: auto"> About</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" href="{% url 'contact' %}" tabindex="-1" aria-label="Contact"><img src="{% static 'app/images/Icons/contact.png' %}" style="height: 25px; width: auto"> Contact</a>
-                      </li>
-                  </ul>
-              <form class="d-flex" method="post" action="{% url 'search_item' %}">
-                  {% csrf_token %}
-                <input class="form-control me-2" name="searched" type="search" placeholder= "Search" aria-label="Search" style="font-family:'Dubai Light'">
-                <button class="btn btn-outline-success" type="submit"><img src="{% static 'app/images/search-icon-512.png' %}" style="height: auto; width:30px"></button>
-              </form>
-                  {% if request.user.is_authenticated %}
-                  <ul class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
-                          <i>Hello {{ request.user }}!</i>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                      <a class="nav-link active" aria-current="page" href="{% url 'home' %}">
+                          <img src="{% static 'app/images/Icons/home.ico' %}" style="height: 25px; width: auto" alt=""> Home
                       </a>
+                  </li>
+                  <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          <img src="{% static 'app/images/Icons/list_icon2.jpg' %}" style="height: 25px; width: auto" alt=""> Product
+                      </a>
+
                       <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                          <li><a class="dropdown-item" href="{% url 'profile' %}">Your Profile</a></li>
-                          <li><a class="dropdown-item" href="{% url 'cart' %}">Your Order</a></li>
-                          <li><a class="dropdown-item" href="{% url 'logout_page' %}">Log Out</a></li>
+                          {% for category in categories %}
+                            <li><a class="dropdown-item" href="{% url 'category_item' %}?category={{category.slug}}">{{ category.name }}</a></li>
+                          {% endfor %}
                       </ul>
+
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{% url 'about' %}"><img src="{% static 'app/images/Icons/pngwing.com.png' %}" style="height: 25px; width: auto" alt=""> About Us</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{% url 'contact' %}" tabindex="-1" aria-label="Contact"><img src="{% static 'app/images/Icons/contact.png' %}" style="height: 25px; width: auto"> Contact Us</a>
+                  </li>
+              </ul>
+          <form class="d-flex" method="post" action="{% url 'search_item' %}">
+              {% csrf_token %}
+            <input class="form-control me-2" name="searched" type="search" placeholder= "Search" aria-label="Search" style="font-family:'Dubai Light',Times,serif">
+            <button class="btn btn-outline-success" type="submit"><img src="{% static 'app/images/search-icon-512.png' %}" style="height: auto; width:30px" alt=""></button>
+          </form>
+              {% if request.user.is_authenticated %}
+              <ul class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
+                      <i>Hello {{ request.user }}!</i>
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <li><a class="dropdown-item" href="{% url 'profile' %}">Your Profile</a></li>
+                      <li><a class="dropdown-item" href="{% url 'cart' %}">Your Order</a></li>
+                      <li><a class="dropdown-item" href="{% url 'logout_page' %}">Log Out</a></li>
                   </ul>
-                   <ul>
-                  <div class="form-inline my-2 my-lg-0">
-                      <a href="{% url 'cart' %}" ><img id="cart-icon" src="{% static 'app/images/cart.png' %}"></a>
-                      <span id='cart items' style=" background-color: greenyellow; border-radius: 5px">{{ cart_items }}</span>
-                  </div>
-                  </ul>
-                  {% else %}
-                  <ul class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="{% url 'login_page' %}" style="color: black">Log In</a>
-                  </ul>
-                  <ul class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="{% url 'register' %}" style="color: black">Sign Up</a>
-                  </ul>
-                  {% endif %}
+              </ul>
+               <ul>
+              <div class="form-inline my-2 my-lg-0">
+                  <a href="{% url 'cart' %}" ><img id="cart-icon" src="{% static 'app/images/cart.png' %}"></a>
+                  <span id='cart items' style=" background-color: greenyellow; border-radius: 5px">{{ cart_items }}</span>
               </div>
+              </ul>
+              {% else %}
+              <ul class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="{% url 'login_page' %}" style="color: black">Log In</a>
+              </ul>
+              <ul class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="{% url 'register' %}" style="color: black">Sign Up</a>
+              </ul>
+              {% endif %}
           </div>
-    </nav>
+      </div>
+</nav>
+{% endblock nav %}
 <!--main content-->
 {% block banner_slider%}{% endblock %}
 {% block content%}{% endblock %}
@@ -109,3 +116,5 @@
 <script src="{% static 'app/js/cart.js' %}"></script>
 </body>
 </html>
+
+{#<input accept="image/*,image/heif,image/heic" class="x1s85apg" type="file">#}

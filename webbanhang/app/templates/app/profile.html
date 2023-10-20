@@ -5,15 +5,52 @@
 {% block profile%}
 <section style="background-color: #eee;">
   <div class="container py-5">
-      <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4"><strong>{{ user.username|upper }} PROFILE</strong></nav>
+
+      <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+          {% include 'app/include/message.html' %}
+          <strong>{{ user.username|upper }} PAGE</strong>
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="float: right;background: none; border: none; padding: 0px">
+              <strong><i style="color: black"> EDIT PROFILE </i></strong><img src="{% static 'app/images/Other/edit.png' %}" alt="Edit" height="22px">
+          </button>
+      </nav>
+
+  <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Edit Your Profile</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+            <form action="" method="post" enctype='multipart/form-data'>
+              {% csrf_token %}
+              <div class="modal-body">
+                  {% for name, type in dict_name_type.items %}
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <div class="form-outline flex-fill mb-0">
+                      <label class="form-label" for="form3Example1c">{{ name|capfirst }}:</label>
+                      <input type="{{ type }}" name="{{ name }}" id="form3Example1c" class="form-control" placeholder=""/>
+                    </div>
+                  </div>
+                  {% endfor %}
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Update Profile</button>
+              </div>
+            </form>
+        </div>
+      </div>
+    </div>
+  <!-- Modal -->
     <div class="row">
       <div class="col-lg-4">
         <div class="card mb-4">
           <div class="card-body text-center">
-              <img src="{% static 'app/images/Other/avatar.jpg' %}" alt="Your Avatar" class="rounded-circle" style="width: 150px;">
+              <img src="{{ user_detail.image_url }}" alt="Your Avatar" class="rounded-circle" style="height: 150px;width: 150px; resize: vertical">
             <h5 class="my-3">{{ user.first_name|upper }} {{ user.last_name|upper }}</h5>
             <div class="d-flex justify-content-center mb-2">
-              <button type="button" class="btn btn-outline-primary ms-1">Update Your Image</button>
+                <button type="button" class="btn btn-outline-primary ms-1"><a href="{{ user_detail.image_url }}" style="text-decoration: none" target="_blank">View Your Image</a></button>
             </div>
           </div>
         </div>
@@ -22,27 +59,15 @@
             <ul class="list-group list-group-flush rounded-3">
               <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                 <i class="fab fa-twitter fa-lg" style="color: #55acee;"></i>
-                <p class="mb-0">{{  user_detail.twitter}}
-                    <button type="submit" style="background: white; border: none">
-                        <img src="{% static 'app/images/Other/edit.png' %}" alt="Edit" height="25px">
-                    </button>
-                </p>
+                <p class="mb-0">{{  user_detail.twitter}}</p>
               </li>
               <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                 <i class="fab fa-tiktok fa-lg" style="color: #ee1d52;"></i>
-                <p class="mb-0">{{  user_detail.tiktok }}
-                    <button type="submit" style="background: white; border: none">
-                        <img src="{% static 'app/images/Other/edit.png' %}" alt="Edit" height="25px">
-                    </button>
-                </p>
+                <p class="mb-0">{{  user_detail.tiktok }}</p>
               </li>
               <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                 <i class="fab fa-facebook-f fa-lg" style="color: #3b5998;"></i>
-                <p class="mb-0">{{ user_detail.facebook }}
-                <button type="submit" style="background: white; border: none">
-                    <img src="{% static 'app/images/Other/edit.png' %}" alt="Edit" height="25px">
-                </button>
-                </p>
+                <p class="mb-0">{{ user_detail.facebook }}</p>
               </li>
             </ul>
           </div>
@@ -83,7 +108,7 @@
                 <p class="mb-0">Address</p>
               </div>
               <div class="col-sm-9">
-                <p class="text-muted mb-0">Bay Area, San Francisco, CA</p>
+                <p class="text-muted mb-0">{{ user_main_info.address }}</p>
               </div>
             </div>
             <hr>
@@ -92,16 +117,17 @@
                 <p class="mb-0">City</p>
               </div>
               <div class="col-sm-9">
-                <p class="text-muted mb-0">LA</p>
+                <p class="text-muted mb-0">{{ user_main_info.city }}</p>
               </div>
             </div>
           </div>
-        </div>
-          <h6><strong>Your Order History</strong></h6>
+        </div >
+        <h6><strong>Your Order History</strong></h6>
         <hr>
+        <div style="background: white">
         {% for invoice_status, invoice in invoice_list_template %}
             {% for item in invoice %}
-				<div class="cart-row">
+				<div class="cart-row"  >
 					<div style="flex:2"><img class="row-image" src="{{ item.product.image_url}}" alt="NoImage"></div>
 					<div style="flex:2"><p>{{ item.product.name }}</p></div>
 					<div style="flex:1"><p>{{ item.product.price|floatformat:"g" }} VND</p></div>
@@ -112,6 +138,7 @@
             <div>Status: {{ invoice_status }}</div>
             <hr>
         {% endfor %}
+        </div>
       </div>
     </div>
   </div>

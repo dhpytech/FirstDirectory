@@ -43,7 +43,7 @@
                 </div>
             {% endfor %}
 		</div>
-            <table class="table" style="margin-left: 80%">
+            <table class="table" style="margin-left: 80%; width: 20%" >
 				<tr>
 					<th><h6>Items: <span id="item_total">{{ order.get_cart_items }}</span></h6></th>
 				</tr>
@@ -51,7 +51,7 @@
 					<th><h6 >Total: <strong><span id ="cost_total">{{ order.get_cart_total|floatformat:"g" }}</span> VND</strong></h6></th>
 				</tr>
                 <tr>
-                    <th><button class="btn btn-outline-success" type="submit" style="background-color: white; margin-right: 20px;width: 300px; border-radius: 10px">Purchase</button></th>
+                    <th><button class="btn btn-outline-success" type="submit" style="background-color: white; margin-right: 20px;width: 100%; border-radius: 10px">Make Order</button></th>
 				</tr>
 			</table>
         </form>
@@ -66,7 +66,7 @@ function total() {
         let price = +item.getAttribute('data-price');
         let quantity = +item.getAttribute('data-quantity');
         total_quantity += quantity;
-        total_cost += price;
+        total_cost += price*quantity;
     }
     console.log("total_quantity",total_quantity)
     console.log("total_cost",total_cost)
